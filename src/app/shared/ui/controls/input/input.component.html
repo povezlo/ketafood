@@ -1,0 +1,20 @@
+<div class="input-group has-validation">
+  @if (label) {
+    <span class="input-group-text" id="inputGroup">{{ label }}</span>
+  }
+
+  <input
+    class="form-control"
+    [id]="id"
+    aria-describedby="inputGroup validationFeedback"
+    min="0"
+    [class.is-invalid]="hasError"
+    [value]="value"
+    [type]="type"
+    [placeholder]="placeholder"
+    [disabled]="isDisabled"
+    [required]="required"
+    (change)="onKeyup($event)" />
+
+  <div id="validationFeedback" class="invalid-feedback">{{ getErrorMessage() }}</div>
+</div>

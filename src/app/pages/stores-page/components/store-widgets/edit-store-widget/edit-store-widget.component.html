@@ -1,0 +1,21 @@
+<p class="text-white text-end mt-4">Edit Store</p>
+
+@if (params$ | async; as params) {
+  <div class="card bg-dark text-white border-white rounded-0">
+    <div class="card-body">
+      <h5 class="card-title">{{ params.id }}</h5>
+      <h6 class="card-subtitle mb-2 fs-6 fw-lighter">Selected store</h6>
+
+      <section class="action-btn d-flex justify-content-between">
+        <div class="col-4">
+          <app-button size="small" color="success" (click)="deleteStore()">Delete</app-button>
+        </div>
+        <div class="col-4">
+          <app-button size="small" color="danger" (click)="goBack()">Cancel</app-button>
+        </div>
+      </section>
+    </div>
+  </div>
+} @else {
+  No Store
+}

@@ -1,35 +1,33 @@
 import { importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import {
-  provideClientHydration,
-  BrowserModule,
-  bootstrapApplication,
-} from '@angular/platform-browser';
-import { Route, RouterModule } from '@angular/router';
-import { AppComponent } from './app/app.component';
+  PreloadAllModules,
+  provideRouter,
+  withComponentInputBinding,
+  withPreloading,
+  withViewTransitions,
+} from '@angular/router';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { BrowserModule, bootstrapApplication, provideClientHydration } from '@angular/platform-browser';
 
-<<<<<<< HEAD
-export const routes: Route[] = [];
+import { provideToastr } from 'ngx-toastr';
+
+import { ErrorInterceptor } from '@core/interceptors';
+import { provideBaseUrl, provideInitializeApp } from '@core/providers';
+import { environment } from './environments/environment.prod';
+import { routes } from './app/routes';
+import { AppComponent } from './app/app.component';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(BrowserModule, RouterModule.forRoot(routes)),
+    importProvidersFrom(BrowserModule, BrowserAnimationsModule),
+    provideRouter(routes, withComponentInputBinding(), withPreloading(PreloadAllModules), withViewTransitions()),
     provideClientHydration(),
+    provideHttpClient(withInterceptors([ErrorInterceptor])),
     provideZoneChangeDetection({ eventCoalescing: true }),
+    provideBaseUrl(environment.baseURL),
+    provideInitializeApp(),
+    provideAnimations(),
+    provideToastr(),
   ],
 }).catch(err => console.error(err));
-=======
-
-import { importProvidersFrom } from '@angular/core';
-import { AppComponent } from './app/app.component';
-import { AppRoutingModule } from './app/app-routing.module';
-import { provideClientHydration, BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-
-
-bootstrapApplication(AppComponent, {
-    providers: [
-        importProvidersFrom(BrowserModule, AppRoutingModule),
-        provideClientHydration()
-    ]
-})
-  .catch(err => console.error(err));
->>>>>>> a416a084d043c36bc93e6fe8ea53545a6ef94123
