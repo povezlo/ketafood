@@ -1,7 +1,17 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { provideClientHydration, BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { Route, RouterModule } from '@angular/router';
+import { AppComponent } from './app/app.component';
 
-import { AppModule } from './app/app.module';
+export const routes: Route[] = [
+]
 
 
-platformBrowserDynamic().bootstrapModule(AppModule)
+bootstrapApplication(AppComponent, {
+    providers: [
+        importProvidersFrom(BrowserModule, RouterModule.forRoot(routes)),
+        provideClientHydration(),
+        provideZoneChangeDetection({ eventCoalescing: true })
+    ]
+})
   .catch(err => console.error(err));
